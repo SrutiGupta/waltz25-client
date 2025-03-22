@@ -1,111 +1,140 @@
 import React, { useState } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { AiOutlineExclamationCircle, AiOutlineMail, AiOutlineLock } from "react-icons/ai";
+import { validateLogin, validateResetEmail } from "../../schema/validate";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
-  const [showForgotPassword, setShowForgotPassword] = useState(false);
-  const [resetEmail, setResetEmail] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Email:", email, "Password:", password, "Remember Me:", rememberMe);
-  };
-
-  const handleForgotPassword = (e) => {
-    e.preventDefault();
-    console.log("Password reset email sent to:", resetEmail);
-    setShowForgotPassword(false);
-  };
+  const [forgotPassword, setForgotPassword] = useState(false);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-cover bg-center relative">
-      {/* Blur Everything Except Forgot Password Box */}
-      {showForgotPassword && (
-        <div className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-md"></div>
+      {/* Blur background when forgot password is active */}
+      {forgotPassword && (
+        <div className="absolute inset-0 bg-black opacity-50"></div>
       )}
 
-      {/* Login Box - Blurred When Forgot Password is Open */}
-      <div className={`w-96 p-8 rounded-lg shadow-lg transition ${showForgotPassword ? "blur-sm" : "bg-white"}`}>
-        <h2 className="text-6xl font-bold text-center mb-10 text-red-600">Sign In</h2>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <input
-            type="email"
-            placeholder="Email"
-            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+      {/* Login Form */}
+      <div className={`w-96  p-6 rounded-lg z-10 transition ${
+        forgotPassword ? "blur-sm" : ""
+      }`}>
+        <h2 className="text-4xl font-bold text-center mb-6 text-red-600">Sign In</h2>
+        
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          validate={validateLogin}
+          onSubmit={(values) => console.log("Form values:", values)}
+        >
+          {({ errors, touched }) => (
+            <Form className="space-y-6">
+              <div>
+                <div className="relative flex items-center">
+                  <AiOutlineMail className="absolute left-3 text-gray-500 text-xl animate-bounce" />
+                  <Field
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    className={`w-full p-3 pl-10 border rounded-lg focus:outline-none ${
+                      errors.email && touched.email ? "border-red-500" : "border-gray-300"
+                    }`}
+                  />
+                  {errors.email && touched.email && (
+                    <AiOutlineExclamationCircle className="absolute right-3 text-red-500 text-xl" />
+                  )}
+                </div>
+                <ErrorMessage name="email" component="div" className="text-red-500 text-sm mt-1" />
+              </div>
 
-          {/* Remember Me & Forgot Password */}
-          <div className="flex justify-between items-center text-sm">
-            <label className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                className="accent-red-600"
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
-              />
-              <span className="text-gray-700">Remember Me</span>
-            </label>
-            <button
-              type="button"
-              onClick={() => setShowForgotPassword(true)}
-              className="text-red-600 hover:underline"
-            >
-              Forgot Password?
-            </button>
-          </div>
+              <div>
+                <div className="relative flex items-center">
+                  <AiOutlineLock className="absolute left-3 text-gray-500 text-xl animate-bounce" />
+                  <Field
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    className={`w-full p-3 pl-10 border rounded-lg focus:outline-none ${
+                      errors.password && touched.password ? "border-red-500" : "border-gray-300"
+                    }`}
+                  />
+                  {errors.password && touched.password && (
+                    <AiOutlineExclamationCircle className="absolute right-3 text-red-500 text-xl" />
+                  )}
+                </div>
+                <ErrorMessage name="password" component="div" className="text-red-500 text-sm mt-1" />
+              </div>
 
-          {/* Sign In Button */}
-          <div className="flex justify-center">
-            <button
-              type="submit"
-              className="w-1/2 bg-red-600 text-white p-3 rounded-lg hover:bg-red-900 transition"
-            >
-              Sign In
-            </button>
-          </div>
-        </form>
+              <div className="flex justify-between items-center">
+                <label className="flex items-center">
+                  <Field type="checkbox" name="rememberMe" className="mr-2" />
+                  Remember Me
+                </label>
+                <button
+                  type="button"
+                  className="text-red-600 hover:underline"
+                  onClick={() => setForgotPassword(true)}
+                >
+                  Forgot Password?
+                </button>
+              </div>
+
+              <button
+                type="submit"
+                className="w-1/2 ml-24 bg-red-600 text-white p-3 rounded-lg hover:bg-red-900 transition"
+              >
+                Sign In
+              </button>
+            </Form>
+          )}
+        </Formik>
       </div>
 
-      {/* Forgot Password Popup (Only This is Clear) */}
-      {showForgotPassword && (
+      {/* Forgot Password Modal */}
+      {forgotPassword && (
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-96 z-20">
-            <h2 className="text-xl font-semibold mb-4">Reset Password</h2>
-            <p className="text-sm text-gray-600 mb-4">Enter your email to reset your password</p>
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-              value={resetEmail}
-              onChange={(e) => setResetEmail(e.target.value)}
-              required
-            />
-            <div className="flex justify-end space-x-4 mt-4">
-              <button
-                className="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
-                onClick={() => setShowForgotPassword(false)}
-              >
-                Cancel
-              </button>
-              <button
-                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-900 transition"
-                onClick={handleForgotPassword}
-              >
-                Send Reset Link
-              </button>
-            </div>
+          <div className="bg-white p-6 rounded-lg shadow-lg w-80 z-20">
+            <h3 className="text-lg font-semibold text-center mb-4">Reset Password</h3>
+
+            <Formik
+              initialValues={{ email: "" }}
+              validate={validateResetEmail}
+              onSubmit={(values) => console.log("Reset Email:", values.email)}
+            >
+              {({ errors, touched }) => (
+                <Form>
+                  <div>
+                    <div className="relative flex items-center">
+                      <AiOutlineMail className="absolute left-3 text-gray-500 text-xl animate-bounce" />
+                      <Field
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        className={`w-full p-3 pl-10 border rounded-lg focus:outline-none ${
+                          errors.email && touched.email ? "border-red-500" : "border-gray-300"
+                        }`}
+                      />
+                      {errors.email && touched.email && (
+                        <AiOutlineExclamationCircle className="absolute right-3 text-red-500 text-xl" />
+                      )}
+                    </div>
+                    <ErrorMessage name="email" component="div" className="text-red-500 text-sm mt-1" />
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full bg-red-600 text-white p-3 rounded-lg hover:bg-red-800 transition mt-4"
+                  >
+                    Submit
+                  </button>
+
+                  <button
+                    type="button"
+                    className="w-full mt-2 text-gray-600 hover:underline text-center"
+                    onClick={() => setForgotPassword(false)}
+                  >
+                    Cancel
+                  </button>
+                </Form>
+              )}
+            </Formik>
           </div>
         </div>
       )}
