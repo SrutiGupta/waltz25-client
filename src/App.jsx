@@ -1,11 +1,15 @@
-/* eslint-disable no-unused-vars */
-import react from 'react'
-import './App.css'
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Signup from "./pages/Signup/Signup.jsx";
+import Login from "./pages/Login/Login.jsx";
 
 const App = () => (
-  <>
-    <h1 className='text-blue-500 font-bold text-6xl px-140 py-50'> Waltz 2025 here ...</h1>
-  </>
+  <Router>
+    <Routes>
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/login" element={<Login />} />
+    </Routes>
+  </Router>
 );
 
-export default App
+export default App;
