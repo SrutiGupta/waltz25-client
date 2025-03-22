@@ -34,7 +34,7 @@ const Login = () => {
                     name="email"
                     placeholder="Email"
                     className={`w-full p-3 pl-10 border rounded-lg focus:outline-none ${
-                      errors.email && touched.email ? "border-red-500" : "border-gray-300"
+                      errors.email && touched.email ? "border-red-500" : "border-gray-300 "
                     }`}
                   />
                   {errors.email && touched.email && (
@@ -127,7 +127,7 @@ const Login = () => {
 
                   <button
                     type="button"
-                    className="w-full mt-2 text-gray-600 hover:underline text-center"
+                    className="w-full mt-2 text-gray-600 hover:text-red-600 text-center"
                     onClick={() => setForgotPassword(false)}
                   >
                     Cancel
