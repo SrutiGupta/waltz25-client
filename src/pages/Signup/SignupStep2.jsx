@@ -29,7 +29,8 @@ const SignupStep2 = ({ next, prev, values, role }) => {
     <Formik initialValues={values} validate={(values) => validateSignupStep2(values, role)} onSubmit={next}>
       {({ errors, touched }) => (
         <Form className="space-y-4">
-          {role === "Student" && (
+          {/* Department Dropdown (Visible for Students, Faculty, and Alumni) */}
+          {(role === "Student" || role === "Faculty" || role === "Alumni") && (
             <>
               <Field as="select" name="department" className="input-field w-full border border-gray-300 rounded-md px-3 py-2">
                 <option value="">Select Department</option>
@@ -41,18 +42,44 @@ const SignupStep2 = ({ next, prev, values, role }) => {
                 <option value="AEIE">AEIE</option>
               </Field>
               <ErrorMessage name="department" component="div" className="text-red-500 text-sm" />
+            </>
+          )}
 
+          {/* Student-Specific Fields */}
+          {role === "Student" && (
+            <>
               <Field as="select" name="currentYear" className="input-field w-full border border-gray-300 rounded-md px-3 py-2">
                 <option value="">Select Year</option>
                 <option value="1st">1st</option>
-                <option value="1st">2nd</option>
-                <option value="1st">3rd</option>
-                <option value="1st">4th</option>
+                <option value="2nd">2nd</option>
+                <option value="3rd">3rd</option>
+                <option value="4th">4th</option>
               </Field>
               <ErrorMessage name="currentYear" component="div" className="text-red-500 text-sm" />
 
               <Field type="text" name="rollNumber" placeholder="Roll Number" component={InputField} />
               <ErrorMessage name="rollNumber" component="div" className="text-red-500 text-sm" />
+            </>
+          )}
+
+          {/* Alumni-Specific Fields */}
+          {role === "Alumni" && (
+            <>
+              <Field type="text" name="companyName" placeholder="Company Name" component={InputField} />
+              <ErrorMessage name="companyName" component="div" className="text-red-500 text-sm" />
+
+              <Field as="select" name="graduationYear" className="input-field w-full border border-gray-300 rounded-md px-3 py-2">
+                <option value="">Select Graduation Year</option>
+                {Array.from({ length: 20 }, (_, i) => {
+                  const year = new Date().getFullYear() - i;
+                  return (
+                    <option key={year} value={year}>
+                      {year}
+                    </option>
+                  );
+                })}
+              </Field>
+              <ErrorMessage name="graduationYear" component="div" className="text-red-500 text-sm" />
             </>
           )}
 
