@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { validateSignupStep3 } from "../../schema/validate.js";
-import { AlertCircle, Eye, EyeOff } from "lucide-react"; // Error & Eye icons
+import { AlertCircle, Eye, EyeOff } from "lucide-react"; 
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 

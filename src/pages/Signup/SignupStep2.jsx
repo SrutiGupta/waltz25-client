@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { validateSignupStep2 } from "../../schema/validate.js";
-import { AlertCircle } from "lucide-react"; // Import red exclamation icon
+import { AlertCircle } from "lucide-react"; 
 
 const InputField = ({ field, form: { errors, touched }, ...props }) => {
   const hasError = errors[field.name] && touched[field.name];
