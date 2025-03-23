@@ -1,6 +1,6 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { validateSignupStep2 } from "../../schema/validateSignupStep2";
+import { validateSignupStep2 } from "../../schema/validate.js";
 
 const SignupStep2 = ({ next, prev, values, role }) => {
   return (
