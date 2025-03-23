@@ -1,14 +1,14 @@
 import React from "react";
-import ContactUs from "../../components/ContactUs/ContactUs"; // Adjust the path if needed
+import ContactUs from "../../components/ContactUs/ContactUs";
 
 const Home = () => {
   return (
     <div>
-      {/* Other sections of your home page */}
-      {/* <h1>Welcome to Our Website</h1> */}
-      <ContactUs />  {/* Add ContactUs component here */}
+     
+     
+      <ContactUs /> 
 
-      {/* Footer or other sections */}
+     
     </div>
   );
 };
