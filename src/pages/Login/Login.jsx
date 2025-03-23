@@ -1,24 +1,21 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { AiOutlineExclamationCircle, AiOutlineMail, AiOutlineLock } from "react-icons/ai";
+import { AiOutlineExclamationCircle, AiOutlineMail, AiOutlineLock, AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { validateLogin, validateResetEmail } from "../../schema/validate";
 
 const Login = () => {
   const [forgotPassword, setForgotPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-cover bg-center relative">
       {/* Blur background when forgot password is active */}
-      {forgotPassword && (
-        <div className="absolute inset-0 bg-black opacity-50"></div>
-      )}
+      {forgotPassword && <div className="absolute inset-0 bg-black opacity-50"></div>}
 
       {/* Login Form */}
-      <div className={`w-96  p-6 rounded-lg z-10 transition ${
-        forgotPassword ? "blur-sm" : ""
-      }`}>
+      <div className={`w-96 p-6 rounded-lg z-10 transition ${forgotPassword ? "blur-sm" : ""}`}>
         <h2 className="text-4xl font-bold text-center mb-6 text-red-600">Sign In</h2>
-        
+
         <Formik
           initialValues={{ email: "", password: "" }}
           validate={validateLogin}
@@ -34,7 +31,7 @@ const Login = () => {
                     name="email"
                     placeholder="Email"
                     className={`w-full p-3 pl-10 border rounded-lg focus:outline-none ${
-                      errors.email && touched.email ? "border-red-500" : "border-gray-300 "
+                      errors.email && touched.email ? "border-red-500" : "border-gray-300"
                     }`}
                   />
                   {errors.email && touched.email && (
@@ -48,16 +45,23 @@ const Login = () => {
                 <div className="relative flex items-center">
                   <AiOutlineLock className="absolute left-3 text-gray-500 text-xl animate-bounce" />
                   <Field
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     name="password"
                     placeholder="Password"
-                    className={`w-full p-3 pl-10 border rounded-lg focus:outline-none ${
+                    className={`w-full p-3 pl-10 pr-10 border rounded-lg focus:outline-none ${
                       errors.password && touched.password ? "border-red-500" : "border-gray-300"
                     }`}
                   />
                   {errors.password && touched.password && (
-                    <AiOutlineExclamationCircle className="absolute right-3 text-red-500 text-xl" />
+                    <AiOutlineExclamationCircle className="absolute right-10 text-red-500 text-xl" />
                   )}
+                  <button
+                    type="button"
+                    className="absolute right-3 text-gray-500 text-xl focus:outline-none"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+                  </button>
                 </div>
                 <ErrorMessage name="password" component="div" className="text-red-500 text-sm mt-1" />
               </div>
@@ -76,10 +80,7 @@ const Login = () => {
                 </button>
               </div>
 
-              <button
-                type="submit"
-                className="w-1/2 ml-24 bg-red-600 text-white p-3 rounded-lg hover:bg-red-900 transition"
-              >
+              <button type="submit" className="w-1/2 ml-24 bg-red-600 text-white p-3 rounded-lg hover:bg-red-900 transition">
                 Sign In
               </button>
             </Form>
@@ -118,10 +119,7 @@ const Login = () => {
                     <ErrorMessage name="email" component="div" className="text-red-500 text-sm mt-1" />
                   </div>
 
-                  <button
-                    type="submit"
-                    className="w-full bg-red-600 text-white p-3 rounded-lg hover:bg-red-800 transition mt-4"
-                  >
+                  <button type="submit" className="w-full bg-red-600 text-white p-3 rounded-lg hover:bg-red-800 transition mt-4">
                     Submit
                   </button>
 

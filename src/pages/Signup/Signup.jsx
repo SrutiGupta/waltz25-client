@@ -36,7 +36,7 @@ const Signup = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="w-96 bg-white p-6 rounded-lg shadow-md">
+      <div className="w-96 shadow-md p-6 rounded-lg">
         <ProgressBar step={step} />
 
         {step === 1 && <SignupStep1 next={nextStep} values={formValues} />}
