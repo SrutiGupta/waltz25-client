@@ -1,0 +1,95 @@
+.footer-wrapper {
+    background-color: black;
+    color: white;
+    padding: 40px 0;
+}
+
+.footer {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+    font-family: 'Ruda', sans-serif;
+}
+
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+.footer-left h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.highlight {
+    color: red;
+}
+
+.footer-left p {
+    max-width: 60%;
+    line-height: 1.5;
+}
+
+.footer-right {
+    display: flex;
+    gap: 40px;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links ul li {
+    margin-bottom: 10px;
+}
+
+.footer-links ul li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links ul li a:hover {
+    color: #f4a261;
+}
+
+.highlight-link {
+    color: orange;
+    font-weight: bold;
+}
+
+.footer-line {
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    margin: 20px 0;
+}
+
+/* Footer Bottom Alignment */
+.footer-bottom {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.footer-contact {
+    text-align: left;
+}
+
+.footer-icons {
+    display: flex;
+    gap: 15px;
+    margin: 10px 0;
+}
+
+.footer-icons a {
+    color: white;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+.footer-icons a:hover {
+    color: blueviolet;
+}
